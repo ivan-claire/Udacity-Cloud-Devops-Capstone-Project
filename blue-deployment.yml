@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: blue
+  name: myapp-1.00
   labels:
     name: myapp
     version: "1.00"
