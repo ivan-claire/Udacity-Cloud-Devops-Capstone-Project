@@ -60,11 +60,11 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
 					sh '''
-                        kubectl config use-context arn:aws:eks:us-east-1:142977788479:cluster/udacity-capstone
-						kubectl apply -f ./blue-deployment.yml
-                        kubectl apply -f ./service.yml
-                        export BlueVersion=$(kubectl get service bluegreenlb -o=jsonpath='{.spec.selector.version}') #find deployed version
-                        kubectl get deployment blue-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml #Deploy new version
+					kubectl config use-context arn:aws:eks:us-east-1:142977788479:cluster/udacity-capstone
+					kubectl apply -f ./blue-deployment.yml
+					kubectl apply -f ./service.yml
+					export BlueVersion=$(kubectl get service bluegreenlb -o=jsonpath='{.spec.selector.version}') #find deployed version
+					kubectl get deployment blue-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml #Deploy new version
 					'''
 				}
 			}
@@ -74,9 +74,9 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
 					sh '''
-                        kubectl rollout status deployment/blue-$GIT_HASH #Health Check
-						kubectl apply -f ./service.yml  #Update Service YAML with Green version
-                        kubectl delete deployment blue-$BlueVersion #Delete blue version
+					kubectl rollout status deployment/blue-$GIT_HASH #Health Check
+					kubectl apply -f ./service.yml  #Update Service YAML with Green version
+					kubectl delete deployment blue-$BlueVersion #Delete blue version
 					'''
 				}
 			}
