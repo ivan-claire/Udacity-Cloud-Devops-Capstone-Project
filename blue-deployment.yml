@@ -1,5 +1,5 @@
 ---
-kind: ReplicationController
+kind: Deployment
 apiVersion: v1
 metadata:
   name: blue
@@ -7,7 +7,7 @@ metadata:
     app: blue
     version: "1.00"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     app: blue
   template:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: blue
-        image: mehmetincefidan/capstone
+        image: awony/capstone
         ports:
         - name: http-server
           containerPort: 80
