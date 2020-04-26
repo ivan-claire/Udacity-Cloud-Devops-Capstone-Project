@@ -63,8 +63,8 @@ pipeline {
 					kubectl config use-context arn:aws:eks:us-east-1:023700642655:cluster/udacity-capstone
 					kubectl apply -f ./blue-deployment.yml
 					kubectl apply -f ./service.yml
-					export BlueVersion=$(kubectl get service bluegreenlb -o=jsonpath='{.spec.selector.version}') #find deployed version
-					kubectl get deployment blue-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml #Deploy new version
+					export BlueVersion=$(kubectl get service myapp -o=jsonpath='{.spec.selector.version}') #find deployed version
+					kubectl get deployment myapp-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml #Deploy new version
 					'''
 				}
 			}
@@ -76,9 +76,9 @@ pipeline {
 					sh '''
 					kubectl get pods
 					kubectl get deployments
-					kubectl rollout status deployment/blue-$GIT_HASH #Health Check
+					kubectl rollout status deployment/myapp-$GIT_HASH #Health Check
 					kubectl apply -f ./service.yml  #Update Service YAML with Green version
-					kubectl delete deployment blue-$BlueVersion #Delete blue version
+					kubectl delete deployment myapp-$BlueVersion #Delete blue version
 					'''
 				}
 			}
