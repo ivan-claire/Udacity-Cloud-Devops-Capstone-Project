@@ -4,19 +4,19 @@ apiVersion: v1
 metadata:
   name: blue
   labels:
-    app: blue
+    app: myapp
     version: "1.00"
 spec:
   replicas: 1
   selector:
-    app: blue
+    app: myapp
   template:
     metadata:
       labels:
-        app: blue
+        app: myapp
     spec:
       containers:
-      - name: blue
+      - name: myapp
         image: awony/capstone
         ports:
         - name: http-server
