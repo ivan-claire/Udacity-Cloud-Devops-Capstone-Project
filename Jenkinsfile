@@ -78,7 +78,7 @@ pipeline {
 					sh '''
 					kubectl rollout status deployment/myapp-1.01 #Health Check
 					kubectl apply -f ./service.yml  #Update Service YAML with Green version
-					kubectl delete deployment myapp-$BlueVersion #Delete blue version
+					kubectl delete deployment myapp-1.00 #Delete blue version
 					'''
 				}
 			}
