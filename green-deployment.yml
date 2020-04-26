@@ -4,16 +4,14 @@ kind: Deployment
 metadata:
   name: green
   labels:
-    app: myapp
+    name: myapp
     version: "1.01"
 spec:
   replicas: 1
-  selector:
-    app: myapp
   template:
     metadata:
       labels:
-        app: myapp
+        name: myapp
     spec:
       containers:
       - name: myapp
