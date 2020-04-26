@@ -62,9 +62,10 @@ pipeline {
 					sh '''
 					kubectl config use-context arn:aws:eks:us-east-1:023700642655:cluster/udacity-capstone
 					kubectl apply -f ./blue-deployment.yml
+					kubectl set image deployment/myapp-1.00 myapp=awony/capstone:$GIT_HASH
 					kubectl apply -f ./service.yml
 					export BlueVersion=$(kubectl get service bluegreenlb -o=jsonpath='{.spec.selector.version}') #find deployed version
-					kubectl get deployment myapp-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml #Deploy new version
+					kubectl get deployment myapp-$BlueVersion -o=yaml | sed -e "s/$BlueVersion/$GIT_HASH/g" | kubectl apply  -f ./green-deployment.yml |kubectl set image deployment/myapp-1.10 myapp=awony/capstone:$GIT_HASH #Deploy new version
 					'''
 				}
 			}
