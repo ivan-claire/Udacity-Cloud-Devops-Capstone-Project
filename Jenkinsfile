@@ -47,15 +47,15 @@ pipeline {
 
 		stage('Build & Push Docker Image To Dockerhub') {
 			steps {
-                script {
-                    dockerImage = docker.build("awony/capstone:${env.GIT_HASH}")
-                    docker.withRegistry('', dockerhub) {
-                    dockerImage.push()
-                    }
-                }
-            }
-		}
-
+				 withDockerRegistry([ credentialsId: "6544de7e-17a4-4576-9b9b-e86bc1e4f903", url: "" ]) {
+					 script {
+					    dockerImage = docker.build("awony/capstone:${env.GIT_HASH}")
+					    dockerImage.push()
+					 }
+				 }
+			}
+               }
+		
 		stage('Perform a Blue Green Deployment') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
