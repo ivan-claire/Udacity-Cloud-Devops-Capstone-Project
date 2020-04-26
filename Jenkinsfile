@@ -76,8 +76,6 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
 					sh '''
-					kubectl get pods
-					kubectl get deployments
 					kubectl rollout status deployment/myapp-1.01 #Health Check
 					kubectl apply -f ./service.yml  #Update Service YAML with Green version
 					kubectl delete deployment myapp-$BlueVersion #Delete blue version
