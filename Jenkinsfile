@@ -60,7 +60,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
 					sh '''
-					kubectl config use-context arn:aws:eks:us-east-1:142977788479:cluster/udacity-capstone
+					kubectl config use-context arn:aws:eks:us-east-1:023700642655:cluster/udacity-capstone
 					kubectl apply -f ./blue-deployment.yml
 					kubectl apply -f ./service.yml
 					export BlueVersion=$(kubectl get service bluegreenlb -o=jsonpath='{.spec.selector.version}') #find deployed version
