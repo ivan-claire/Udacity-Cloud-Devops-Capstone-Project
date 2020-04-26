@@ -10,6 +10,6 @@ spec:
   - port: 8000
     targetPort: 80
   selector:
-    app: blue
+    app: myapp
     version: "1.00"
   type: LoadBalancer
