@@ -48,9 +48,9 @@ pipeline {
 		stage('Build & Push Docker Image To Dockerhub') {
 			steps {
                 script {
-                    dockerImage = sudo docker.build("awony/capstone:${env.GIT_HASH}")
-                    sudo docker.withRegistry('', dockerhub) {
-                    sudo dockerImage.push()
+                    dockerImage = docker.build("awony/capstone:${env.GIT_HASH}")
+                    docker.withRegistry('', dockerhub) {
+                    dockerImage.push()
                     }
                 }
             }
