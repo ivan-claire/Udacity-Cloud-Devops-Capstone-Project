@@ -45,13 +45,13 @@ pipeline {
 		    }
 		}
 
-		stage('Build&Push Image To Dockerhub') {
+		stage('Build & Push to Dockerhub') {
 			steps {
 				 withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
-					 script {
-					    dockerImage = docker.build("awony/capstone:${env.GIT_HASH}")
-					    dockerImage.push()
-					 }
+					 sh '''
+					 docker build -t awony/capstone:${GIT_HASH} .
+					 docker push awony/capstone:${GIT_HASH}
+					 '''
 				 }
 			}
                }
