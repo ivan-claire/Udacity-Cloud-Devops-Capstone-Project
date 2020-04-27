@@ -29,7 +29,7 @@ and the load balancer service defined in the service.yml file points to it.
 Then the green version: myapp-1.01 is deployed and a health check done to ensure it runs correctly.
 Once it's confirmed that the depmoyment is healthy,
 the loadbalancer service is switched to the new version of the app.
-![Pipeline Image](https://github.com/ivan-claire/Udacity-Cloud-Devops-Capstone-Project/blob/master/Screenshots/performing healthcheck.png)
+![Pipeline Image](https://github.com/ivan-claire/Udacity-Cloud-Devops-Capstone-Project/blob/master/performing healthcheck.png)
 
 
 
