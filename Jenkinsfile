@@ -45,7 +45,7 @@ pipeline {
 		    }
 		}
 
-		stage('Build & Push Docker Image To Dockerhub') {
+		stage('Build&Push Image To Dockerhub') {
 			steps {
 				 withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
 					 script {
@@ -77,12 +77,20 @@ pipeline {
 				withAWS(region:'us-east-1', credentials:'aws-static') {
 					sh '''
 					kubectl rollout status deployment/myapp-1.01 #Health Check
+					'''
+				}
+			}
+       		}
+		stage('Update Service to Green Deployment') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'aws-static') {
+					sh '''
 					kubectl apply -f ./service.yml  #Update Service YAML with Green version
 					kubectl delete deployment myapp-1.00 #Delete blue version
 					'''
 				}
 			}
-        }
+       		}
 
 	}
 }
